@@ -409,4 +409,63 @@ public class DocumentumRepository extends ConexaoDocumentum {
 
 	}
 
+	public ArrayList<String[]> getHistorico(String protocolo) throws Exception {
+
+		String queryString = Querys.buscaHistorico(protocolo);
+
+		ArrayList<String[]> returnArray = new ArrayList<String[]>();
+
+		IDfQuery query = new DfQuery();
+
+		query.setDQL(queryString);
+
+		IDfCollection coll = query.execute(getSessDctm(), 0);
+
+		while (coll.next()) {
+
+			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
+			String[] objectNameFile = { typeObject.getString("r_object_id"),
+					typeObject.getString("nome"),
+					typeObject.getString("situacao"),
+					typeObject.getString("id_workflow") };
+
+			returnArray.add(objectNameFile);
+
+		}
+
+		return returnArray;
+
+	}
+	
+	public ArrayList<String[]> getWorkflow(String wrokflow) throws Exception {
+
+		String queryString = Querys.buscaWorkflow(wrokflow);
+
+		ArrayList<String[]> returnArray = new ArrayList<String[]>();
+
+		IDfQuery query = new DfQuery();
+
+		query.setDQL(queryString);
+
+		IDfCollection coll = query.execute(getSessDctm(), 0);
+
+		while (coll.next()) {
+
+			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
+			String[] objectNameFile = { typeObject.getString("r_object_id"),
+					typeObject.getString("nome_atividade"),
+					typeObject.getString("nome_responsavel"),
+					typeObject.getString("data_inicio"),
+					typeObject.getString("data_termino"),
+					typeObject.getString("tempo_solucao"),
+					typeObject.getString("tempo_total"),		
+					};
+
+			returnArray.add(objectNameFile);
+
+		}
+
+		return returnArray;
+
+	}
 }

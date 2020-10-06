@@ -97,8 +97,14 @@ public class Querys {
 	}
 	
 	
+	public static String buscaHistorico(String protocolo){
+		String query = "select r_object_id, nome, situacao, id_workflow from pe_workflow where nome like'%" +protocolo+ "%'";
+		return query;
+	}
 	
-	
-	
+	public static String buscaWorkflow(String workflow){
+		String query = "select r_object_id, nome_atividade, nome_responsavel, situacao, data_criacao, data_inicio, data_termino, tempo_solucao, tempo_total  from pe_historico where id_workflow = '"+workflow+"' order by data_criacao";
+		return query;
+	}
 	
 }
