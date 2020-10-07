@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.indra.documentum.connection.ConexaoDocumentum;
+import br.com.indra.documentum.entities.Protocolo;
+import br.com.indra.documentum.entities.Workflow;
 import br.com.indra.documentum.queries.Querys;
 
 import com.documentum.fc.client.DfQuery;
@@ -409,11 +411,11 @@ public class DocumentumRepository extends ConexaoDocumentum {
 
 	}
 
-	public ArrayList<String[]> getHistorico(String protocolo) throws Exception {
+	public Protocolo getHistorico(String protocolo) throws Exception {
 
 		String queryString = Querys.buscaHistorico(protocolo);
 
-		ArrayList<String[]> returnArray = new ArrayList<String[]>();
+		Protocolo protocolo1 = new Protocolo();
 
 		IDfQuery query = new DfQuery();
 
@@ -424,24 +426,24 @@ public class DocumentumRepository extends ConexaoDocumentum {
 		while (coll.next()) {
 
 			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
-			String[] objectNameFile = { typeObject.getString("r_object_id"),
+			protocolo1 = new Protocolo(typeObject.getString("r_object_id"),
 					typeObject.getString("nome"),
 					typeObject.getString("situacao"),
-					typeObject.getString("id_workflow") };
+					typeObject.getString("id_workflow"));
 
-			returnArray.add(objectNameFile);
+			
 
 		}
 
-		return returnArray;
+		return protocolo1;
 
 	}
 	
-	public ArrayList<String[]> getWorkflow(String wrokflow) throws Exception {
+	public ArrayList<Workflow> getWorkflow(String wrokflow) throws Exception {
 
 		String queryString = Querys.buscaWorkflow(wrokflow);
 
-		ArrayList<String[]> returnArray = new ArrayList<String[]>();
+		ArrayList<Workflow> returnArray = new ArrayList<Workflow>();
 
 		IDfQuery query = new DfQuery();
 
@@ -452,14 +454,15 @@ public class DocumentumRepository extends ConexaoDocumentum {
 		while (coll.next()) {
 
 			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
-			String[] objectNameFile = { typeObject.getString("r_object_id"),
+			
+			Workflow objectNameFile = new Workflow(typeObject.getString("r_object_id"),
 					typeObject.getString("nome_atividade"),
 					typeObject.getString("nome_responsavel"),
 					typeObject.getString("data_inicio"),
 					typeObject.getString("data_termino"),
 					typeObject.getString("tempo_solucao"),
-					typeObject.getString("tempo_total"),		
-					};
+					typeObject.getString("tempo_total")		
+					);
 
 			returnArray.add(objectNameFile);
 
