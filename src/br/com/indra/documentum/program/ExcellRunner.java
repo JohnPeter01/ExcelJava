@@ -31,7 +31,7 @@ public class ExcellRunner {
 			break;
 			
 		default:
-			System.out.println("Função não localizada.");
+			System.out.println("Funï¿½ï¿½o nï¿½o localizada.");
 			break;
 		}
 	}

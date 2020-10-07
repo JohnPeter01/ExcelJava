@@ -84,6 +84,28 @@ public class ProcessHandler {
 	}
  
 	public void historicoEmLote(ArrayList<String> protocolos) {
-
+		
+		int i = 0;
+		for(i = 0; i < protocolos.size(); i++){
+			System.out.println(protocolos.get(i));
+			try {
+	
+				Protocolo historico = rep.getHistoricoEmLote(protocolos.get(i));
+				
+				
+				ArrayList<Workflow> workflows = rep.getWorkflow(historico
+						.getIdWorkflow());
+				System.out.println(workflows.indexOf(0));
+	
+				for (Workflow workflow : workflows) {
+					System.out.println("ENTREI AQUI");
+					System.out.println(workflow.toString());
+				}
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
 	}
 }
