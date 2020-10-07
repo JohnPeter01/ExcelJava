@@ -36,14 +36,14 @@ public class Utils {
 		
 	}
 	
-	public void historicoEmLote(String[] protocolos) {
+	public void historicoEmLote(ArrayList<String> protocolos) {
 		
 		int i = 0;
-		for(i = 0; i < protocolos.length; i++){
-			System.out.println(protocolos[i]);
+		for(i = 0; i < protocolos.size(); i++){
+			System.out.println(protocolos.get(i));
 			try {
 	
-				Protocolo historico = rep.getHistoricoEmLote(protocolos[i]);
+				Protocolo historico = rep.getHistoricoEmLote(protocolos.get(i));
 				
 				
 				ArrayList<Workflow> workflows = rep.getWorkflow(historico
