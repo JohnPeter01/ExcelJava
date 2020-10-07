@@ -36,7 +36,29 @@ public class Utils {
 		
 	}
 	
-	public void historicoEmLote() {
+	public void historicoEmLote(String[] protocolos) {
 		
+		int i = 0;
+		for(i = 0; i < protocolos.length; i++){
+			System.out.println(protocolos[i]);
+			try {
+	
+				Protocolo historico = rep.getHistoricoEmLote(protocolos[i]);
+				
+				
+				ArrayList<Workflow> workflows = rep.getWorkflow(historico
+						.getIdWorkflow());
+				System.out.println(workflows.indexOf(0));
+	
+				for (Workflow workflow : workflows) {
+					System.out.println("ENTREI AQUI");
+					System.out.println(workflow.toString());
+				}
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
 	}
 }
