@@ -121,5 +121,10 @@ public class Querys {
 				+ workflow + "' order by data_criacao";
 		return query;
 	}
+	
+	public static String buscaAtividades(String workflow) {
+		String query = "select r_object_id, r_performer_name from dmi_workitem_s where r_workflow_id = '" + workflow + "' order by r_object_id desc enable(RETURN_TOP  1)";
+		return query;
+	}
 
 }

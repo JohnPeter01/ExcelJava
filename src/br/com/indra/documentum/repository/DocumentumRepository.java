@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.indra.documentum.connection.ConexaoDocumentum;
+import br.com.indra.documentum.entities.Atividade;
 import br.com.indra.documentum.entities.Protocolo;
 import br.com.indra.documentum.entities.Workflow;
 import br.com.indra.documentum.queries.Querys;
@@ -471,4 +472,32 @@ public class DocumentumRepository extends ConexaoDocumentum {
 		return returnArray;
 
 	}
+	
+	public Atividade getAtividade(String wrokflow) throws Exception {
+
+		String queryString = Querys.buscaAtividades(wrokflow);
+
+		Atividade atividade = new Atividade();
+
+		IDfQuery query = new DfQuery();
+
+		query.setDQL(queryString);
+
+		IDfCollection coll = query.execute(getSessDctm(), 0);
+
+		while (coll.next()) {
+
+			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
+			
+			atividade = new Atividade(
+					wrokflow,
+					typeObject.getString("r_object_id"),
+					typeObject.getString("r_performer_name"));
+
+		}
+
+		return atividade;
+
+	}
+
 }
