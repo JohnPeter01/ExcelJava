@@ -115,6 +115,18 @@ public class Querys {
 				+ protocolo + "%'";
 		return query;
 	}
+	
+	public static String pastaTypeFdAero(String protocolo) {
+		String query = "select r_object_id , object_name from fd_aero where attrib_protocolo = '"+protocolo+"'";
+			
+		return query;
+	}
+
+	public static String pastaTypeTpAero(String nomeFolder) {
+		String query = "select r_object_id, object_name from tp_aero where FOLDER('/Propostas/"+nomeFolder+"')";
+			
+		return query;
+	}
 
 	public static String buscaWorkflow(String workflow) {
 		String query = "select r_object_id, nome_atividade, nome_responsavel, situacao, data_criacao, data_inicio, data_termino, tempo_solucao, tempo_total  from pe_historico where id_workflow = '"
