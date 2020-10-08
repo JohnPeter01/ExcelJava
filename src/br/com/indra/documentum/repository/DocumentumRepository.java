@@ -500,6 +500,77 @@ public class DocumentumRepository extends ConexaoDocumentum {
 
 	}
 	
+	
+public ArrayList<Folder> getFdAero(String protocolo) throws DfException {
+		
+		String queryString = Querys.pastaTypeFdAero(protocolo);
+
+		ArrayList<Folder> returnArray = new ArrayList<Folder>();
+
+		IDfQuery query = new DfQuery();
+
+		query.setDQL(queryString);
+
+		IDfCollection coll = query.execute(getSessDctm(), 0);
+
+		
+		while (coll.next()) {
+
+			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
+			
+			Folder fd  = new Folder(
+					typeObject.getString("r_object_id"),
+					typeObject.getString("object_name")	
+					);
+
+			returnArray.add(fd);
+		}
+		
+
+		
+		return returnArray;
+	}
+
+	public Folder getTpAero(String nomeFolder)  {
+		
+		Folder folder = new  Folder();
+		try {
+		String queryString = Querys.pastaTypeTpAero(nomeFolder);
+
+		
+
+		IDfQuery query = new DfQuery();
+
+		query.setDQL(queryString);
+
+		IDfCollection coll = query.execute(getSessDctm(), 0);
+
+		
+		while (coll.next()) {
+
+			IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
+			
+			folder = new Folder(
+					typeObject.getString("r_object_id"),
+					typeObject.getString("object_name")	
+					);
+
+		
+			
+			
+		}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return folder;
+		
+	
+	}
+	
+	
+	
 	public Protocolo getHistoricoEmLote(String protocolo) throws Exception {
 
 		 
