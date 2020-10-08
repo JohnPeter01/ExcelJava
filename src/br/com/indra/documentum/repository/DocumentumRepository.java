@@ -500,5 +500,57 @@ public class DocumentumRepository extends ConexaoDocumentum {
 
 	}
 	
+	public Protocolo getHistoricoEmLote(String protocolo) throws Exception {
+
+		 
+
+        String queryString = Querys.buscaHistorico(protocolo);
+
+ 
+
+        Protocolo protocolo1 = new Protocolo();
+
+ 
+
+        IDfQuery query = new DfQuery();
+
+ 
+
+        query.setDQL(queryString);
+
+ 
+
+        IDfCollection coll = query.execute(getSessDctm(), 0);
+
+ 
+
+        while (coll.next()) {
+
+ 
+
+            IDfTypedObject typeObject = (IDfTypedObject) coll.getTypedObject();
+            protocolo1 = new Protocolo(typeObject.getString("r_object_id"),
+                    typeObject.getString("nome"),
+                    typeObject.getString("situacao"),
+                    typeObject.getString("id_workflow"));
+
+ 
+
+            
+
+ 
+
+        }
+
+ 
+
+        return protocolo1;
+
+ 
+
+    }
+	
+	
+	
 	
 }

@@ -1,13 +1,12 @@
 package br.com.indra.documentum.program;
 
-import java.util.ArrayList;
-
 import br.com.indra.documentum.service.ProcessHandler;
 import br.com.indra.documentum.utils.Utils;
 
 public class ExcellRunner {
 	public static void main(String[] args) {
 		ProcessHandler processHandler = new ProcessHandler();
+		
 		Utils utils = new Utils();
 		
 		int processo = Integer.parseInt(args[0]);
