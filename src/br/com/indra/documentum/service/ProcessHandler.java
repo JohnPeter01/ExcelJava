@@ -3,6 +3,7 @@ package br.com.indra.documentum.service;
 import java.util.ArrayList;
 
 import br.com.indra.documentum.entities.Atividade;
+import br.com.indra.documentum.entities.Folder;
 import br.com.indra.documentum.entities.Protocolo;
 import br.com.indra.documentum.entities.Workflow;
 import br.com.indra.documentum.repository.DocumentumRepository;
@@ -81,6 +82,55 @@ public class ProcessHandler {
 
 	public void excluirEmLote(ArrayList<String> protocolos) {
 
+		try {
+
+			Protocolo historico = rep.getHistorico("25495948");
+
+			ArrayList<Folder> fdAero = rep.getFdAero("25495948");
+
+			ArrayList<Folder> tpAero = new ArrayList<Folder>();
+
+			Folder fl = new Folder();
+			
+			
+			
+			for (Folder fb : fdAero) {
+				
+
+				System.out.println("----------------------------------------------------------------------------------------------");
+				    System.out.printf("%10s %15s %25s", "*ID_WORKFLOW*", "*NOME_FOLDER*", "*ID_FILE*","*NOME_FILE*","*API_COMMANDS*");
+				    System.out.println();
+				    System.out.println("----------------------------------------------------------------------------------------------");
+				
+				System.out.println(historico);
+				System.out.println();
+				System.out.format("%10s %15s %15s", fb.getRObjectId(),
+						fb.getRObjectId());
+				
+				
+				
+
+				tpAero.add(rep.getTpAero(fb.getObjectName()));
+
+			}
+
+			for (Folder tp : tpAero) {
+				System.out.println(tp.toString());
+				
+				System.out.format("%10s %15s %15s", tb.getRObjectId(),
+						tb.getRObjectId());
+						   
+			        System.out.println();
+		           
+				
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
  
 	public void historicoEmLote(ArrayList<String> protocolos) {
@@ -101,6 +151,7 @@ public class ProcessHandler {
 					System.out.println("ENTREI AQUI");
 					System.out.println(workflow.toString());
 				}
+				
 	
 			} catch (Exception e) {
 				e.printStackTrace();
