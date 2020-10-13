@@ -58,7 +58,7 @@ public class ProcessHandler {
 			}
 
 			System.out.println("----------------------------------------------------------------------------------------------");
-		    System.out.printf("%10s %15s %25s", "*ID_WORKFLOW*", "*ITEM_ID*", "*ATUAL_RESPONSÁVEL*");
+		    System.out.printf("%10s %15s %25s", "*ID_WORKFLOW*", "*ITEM_ID*", "*ATUAL_RESPONSï¿½VEL*");
 		    System.out.println();
 		    System.out.println("----------------------------------------------------------------------------------------------");
 		    for (Atividade atividade : atividades) {
@@ -92,15 +92,15 @@ public class ProcessHandler {
 
 			Folder fl = new Folder();
 			
-			
+			System.out.println("----------------------------------------------------------------------------------------------");
+				    System.out.printf("%10s %15s %25s", "*ID_WORKFLOW*", "*NOME_FOLDER*", "*ID_FILE*","*NOME_FILE*","*API_COMMANDS*");
+				    System.out.println();
+				    System.out.println("----------------------------------------------------------------------------------------------");
 			
 			for (Folder fb : fdAero) {
 				
 
-				System.out.println("----------------------------------------------------------------------------------------------");
-				    System.out.printf("%10s %15s %25s", "*ID_WORKFLOW*", "*NOME_FOLDER*", "*ID_FILE*","*NOME_FILE*","*API_COMMANDS*");
-				    System.out.println();
-				    System.out.println("----------------------------------------------------------------------------------------------");
+				
 				
 				System.out.println(historico);
 				System.out.println();
@@ -136,22 +136,30 @@ public class ProcessHandler {
 	public void historicoEmLote(ArrayList<String> protocolos) {
 		
 		int i = 0;
+		System.out.println("----------------------------------------------------------------------------------------------");
+	    System.out.printf("%10s %20s %15s %20s %20s", "*OBJECT ID*", "*RESPONSAVEL*", "*ATIVIDADE*", "*DT INICIO*", "*DT FIM*");
+	    System.out.println();
+	    System.out.println("----------------------------------------------------------------------------------------------");
+		
 		for(i = 0; i < protocolos.size(); i++){
 			System.out.println(protocolos.get(i));
 			try {
 	
 				Protocolo historico = rep.getHistoricoEmLote(protocolos.get(i));
+				ArrayList<Workflow> workflows = rep.getWorkflow(historico.getIdWorkflow());
 				
-				
-				ArrayList<Workflow> workflows = rep.getWorkflow(historico
-						.getIdWorkflow());
-				System.out.println(workflows.indexOf(0));
 	
 				for (Workflow workflow : workflows) {
-					System.out.println("ENTREI AQUI");
-					System.out.println(workflow.toString());
-				}
-				
+					System.out.format("%10s %10s %17ss %25s %15s",
+			        		workflow.getRObjectId(), 
+			        		workflow.getNomeResponsavel(), 
+			        		workflow.getNomeAtividade(), 
+			        		workflow.getDataInicio(), 
+			        		workflow.getDataTermino()
+			        		);
+			        System.out.println();
+			    }
+			    System.out.println("----------------------------------------------------------------------------------------------");	
 	
 			} catch (Exception e) {
 				e.printStackTrace();
